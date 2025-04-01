@@ -1,0 +1,24 @@
+{
+    "org": "$HZN_ORG_ID",
+    "label": "$SERVICE_NAME for $ARCH",
+    "description": "postgres database service",
+    "public": true,
+    "documentation": "",
+    "url": "$SERVICE_NAME",
+    "version": "latest",
+    "arch": "$ARCH",
+    "sharable": "singleton",
+    "requiredServices": [],
+    "userInput": [],
+    "deployment": {
+        "services": {
+            "$SERVICE_NAME": {
+                "image": "postgres:latest",
+                "privileged": false,
+                "ports": [{"HostPort":"5432:5432"}],
+                "binds":["/db-data/:/var/lib/postgresql/data/:rw"],
+                "secrets": {"secret_user":{},"secret_password":{},"secret_db":{}}
+            }
+        }
+    }
+}
