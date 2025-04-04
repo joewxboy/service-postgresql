@@ -1,11 +1,11 @@
 {
     "org": "$HZN_ORG_ID",
     "label": "$SERVICE_NAME for $ARCH",
-    "description": "postgres database service",
+    "description": "postgres database service https://hub.docker.com/_/postgres",
     "public": true,
-    "documentation": "",
+    "documentation": "https://github.com/open-horizon-services/service-postgresql",
     "url": "$SERVICE_NAME",
-    "version": "latest",
+    "version": "$SERVICE_VERSION",
     "arch": "$ARCH",
     "sharable": "singleton",
     "requiredServices": [],
@@ -13,7 +13,7 @@
     "deployment": {
         "services": {
             "$SERVICE_NAME": {
-                "image": "postgres:latest",
+                "image": "postgres:17.4",
                 "privileged": false,
                 "ports": [{"HostPort":"5432:5432"}],
                 "binds":["/db-data/:/var/lib/postgresql/data/:rw"],
