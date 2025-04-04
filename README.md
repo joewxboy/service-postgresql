@@ -57,9 +57,17 @@ curl -sSL https://github.com/open-horizon/anax/releases/latest/download/agent-in
 
 ## Usage
 
-To manually run Home Assistant locally as a test, enter `make`.  This will open a browser window, but it may do so before Home Assistant is completely ready.  If you get a blank web page, wait about 10 seconds or so and reload the page.  Running `make attach` will connect you to a prompt running inside the container, and you can end that session by entering `exit`.  When you are done, run `make stop` in the terminal to end the test.
+To manually run PostgreSQL locally as a test, enter `make`.  This will open a browser window, but it may do so before PostgreSQL is completely ready.  If you get a blank web page, wait about 10 seconds or so and reload the page.  Running `make attach` will connect you to a prompt running inside the container, and you can end that session by entering `exit`.  When you are done, run `make stop` in the terminal to end the test.
 
-To create [the service definition](https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/CreateService.md#build-publish-your-hw), publish it to the hub, and then form an agreement to download and run Home Assistant, enter `make publish`.  When installation is complete and an agreement has been formed, exit the watch command with Control-C.  You may then open a browser pointing to Home Assistant by entering `make browse` or visiting [http://localhost:8123/](http://localhost:8123/) in a web browser.
+Populate the Secrets Manager before publishing services:
+
+```bash
+hzn sm secret add --secretKey=user --secretDetail=<username> secret_user
+hzn sm secret add --secretKey=password --secretDetail=<password> secret_password
+hzn sm secret add --secretKey=db --secretDetail=<databaseName> secret_db
+```
+
+To create [the service definition](https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/CreateService.md#build-publish-your-hw), publish it to the hub, and then form an agreement to download and run PostgreSQL, enter `make publish`.  When installation is complete and an agreement has been formed, exit the watch command with Control-C.
 
 ## Advanced details
 
@@ -84,7 +92,7 @@ The Makefile includes several targets to assist you in inspecting what is happen
 * `default` - init run browse
 * `init` - optionally create the docker volume
 * `run` - manually run the postgres container locally as a test
-* `browse` - open the Home Assistant UI in a web browser
+* `browse` - open the PostgreSQL UI in a web browser
 * `check` - view current settings
 * `stop` - halt a locally-run container
 * `dev` - manually run postgresql locally and connect to a terminal in the container

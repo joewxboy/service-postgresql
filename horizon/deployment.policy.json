@@ -4,7 +4,7 @@
     "service": {       
       "name": "$SERVICE_NAME",
       "org": "$HZN_ORG_ID",    
-      "arch": "*",    
+      "arch": "$ARCH",    
       "serviceVersions": [ 
         {
           "version": "$SERVICE_VERSION",
@@ -24,6 +24,17 @@
         "serviceUrl": "$SERVICE_NAME",
         "serviceVersionRange": "[0.0.0,INFINITY)",
         "inputs": []
+      }
+    ],
+    "secretBinding": [
+      {
+        "serviceUrl": "$SERVICE_NAME",
+        "serviceOrgid": "$HZN_ORG_ID",
+        "serviceArch": "$ARCH",
+        "serviceVersionRange": "[0.0.0,INFINITY)",
+        "secrets": [
+          {"secret_user":"secret_user","secret_password":"secret_password","secret_db":"secret_db"}
+        ]
       }
     ]
 }  

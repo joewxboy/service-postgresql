@@ -129,7 +129,7 @@ agent-run:
 	@echo "================"
 	@echo "REGISTERING NODE"
 	@echo "================"
-	@hzn register --policy=./horizon/node.policy.json --input-file=./horizon/userinput.json
+	@hzn register --policy=./horizon/node.policy.json
 	@watch hzn agreement list
 
 agent-stop:
