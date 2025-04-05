@@ -23,7 +23,7 @@ export ARCH ?= amd64
 # Detect Operating System running Make
 OS := $(shell uname -s)
 
-default: init run browse
+default: init run
 
 check:
 	@echo "====================="

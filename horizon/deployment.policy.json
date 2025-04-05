@@ -34,8 +34,12 @@
       "enableNodeLevelSecrets": false,
       "secrets": [
         {
-          "secret_user": "secret_user",
-          "secret_password": "secret_password",
+          "secret_user": "secret_user"
+        },
+        {
+          "secret_password": "secret_password"
+        },
+        {
           "secret_db": "secret_db"
         }
       ]

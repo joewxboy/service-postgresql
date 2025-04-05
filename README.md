@@ -2,7 +2,7 @@
 
 ![license](https://img.shields.io/github/license/open-horizon-services/service-postgresql) ![architecture](https://img.shields.io/badge/architecture-x86,_arm64-green) ![Contributors](https://img.shields.io/github/contributors/open-horizon-services/service-postgresql.svg)
 
-This is an Open Horizon configuration to deploy a vanilla instance of the open-source PostGreSQL database software. This service is intended to be used as an edge service that provides PostgreSQL database functionality to other services running on the same edge node.  It is not intended to be a production-ready database server, but rather a lightweight way to provide a database for development or testing purposes.
+This is an Open Horizon configuration to deploy a vanilla instance of the open-source PostgreSQL database software. This service is intended to be used as an edge service that provides PostgreSQL database functionality to other services running on the same edge node.  It is not intended to be a production-ready database server, but rather a lightweight way to provide a database for development or testing purposes.
 
 ## Prerequisites
 
@@ -57,9 +57,9 @@ curl -sSL https://github.com/open-horizon/anax/releases/latest/download/agent-in
 
 ## Usage
 
-To manually run PostgreSQL locally as a test, enter `make`.  This will open a browser window, but it may do so before PostgreSQL is completely ready.  If you get a blank web page, wait about 10 seconds or so and reload the page.  Running `make attach` will connect you to a prompt running inside the container, and you can end that session by entering `exit`.  When you are done, run `make stop` in the terminal to end the test.
+To manually run PostgreSQL locally as a test, enter `make`.  Running `make attach` will connect you to a prompt running inside the container, and you can end that session by entering `exit`.  When you are done, run `make stop` in the terminal to end the test.
 
-Populate the Secrets Manager before publishing services:
+Populate the Secrets Manager **before** publishing services:
 
 ```bash
 hzn sm secret add --secretKey=user --secretDetail=<username> secret_user
@@ -70,6 +70,8 @@ hzn sm secret add --secretKey=db --secretDetail=<databaseName> secret_db
 To create [the service definition](https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/CreateService.md#build-publish-your-hw), publish it to the hub, and then form an agreement to download and run PostgreSQL, enter `make publish`.  When installation is complete and an agreement has been formed, exit the watch command with Control-C.
 
 ## Advanced details
+
+NOTE: If you are planning to run this on the same host as the exchange, there will be a port conflict.  Change the port numbers (5432) in both the Makefile and the service.definition.json before publishing and using.
 
 ### Debugging
 
@@ -85,14 +87,13 @@ The Makefile includes several targets to assist you in inspecting what is happen
 
 `make attach` to connect to the running container and open a shell inside it.
 
-> **Note** The service-postgresql container by default runs in un-privileged mode, but it may require privileged conditions in certain cases (For eg: to detect specific hardware, for more information please ref. <https://github.com/home-assistant/home-assistant.io/issues/18014>). In that case you can manually add "--privileged" flag in the Makefile under `docker-run` command.
+> **Note** The service-postgresql container by default runs in un-privileged mode.
 
 ### All Makefile targets
 
 * `default` - init run browse
 * `init` - optionally create the docker volume
 * `run` - manually run the postgres container locally as a test
-* `browse` - open the PostgreSQL UI in a web browser
 * `check` - view current settings
 * `stop` - halt a locally-run container
 * `dev` - manually run postgresql locally and connect to a terminal in the container
