@@ -52,6 +52,8 @@ stop:
 
 init:
 	@docker volume create $(DOCKER_VOLUME_NAME)
+	@sudo mkdir /db-data
+	@sudo chmod 777 /db-data
 
 run: stop
 	@docker run -d \
@@ -126,7 +128,7 @@ agent-stop:
 	@echo ""
 
 deploy-check:
-	@hzn deploycheck all -t device -B ./horizon/deployment.policy.json --service=./horizon/service.definition.json --service-pol=./horizon/service.policy.json --node-pol=./horizon/node.policy.json
+	@hzn deploycheck all -t device -B ./horizon/deployment.policy.json --service=./horizon/service.definition.json --node-pol=./horizon/node.policy.json
 
 log:
 	@echo "========="
