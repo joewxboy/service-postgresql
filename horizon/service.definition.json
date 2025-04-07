@@ -2,7 +2,7 @@
     "org": "$HZN_ORG_ID",
     "label": "$SERVICE_NAME for $ARCH",
     "description": "postgres database service https://hub.docker.com/_/postgres",
-    "public": true,
+    "public": false,
     "documentation": "https://github.com/open-horizon-services/service-postgresql",
     "url": "$SERVICE_NAME",
     "version": "$SERVICE_VERSION",
