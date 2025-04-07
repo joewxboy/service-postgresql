@@ -69,6 +69,8 @@ hzn sm secret add --secretKey=db --secretDetail=<databaseName> secret_db
 
 The first time you intend to run this on a host, run `make init`.  This will create the volume that persists data across container restarts.  It will also create the directory that the database is stored in and ensure it has the proper permissions.
 
+If you are not running as root, you must add the current user account to the docker group so that it can run docker commands without sudo: `sudo usermod -a -G docker $USER`.
+
 To create [the service definition](https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/CreateService.md#build-publish-your-hw), publish it to the hub, and then form an agreement to download and run PostgreSQL, enter `make publish`.  When installation is complete and an agreement has been formed, exit the watch command with Control-C.
 
 ## Advanced details
