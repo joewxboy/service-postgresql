@@ -1,6 +1,0 @@
-{
-    "properties": [],
-    "constraints": [
-        "openhorizon.allowPrivileged == false AND purpose == storage"
-    ]
-}

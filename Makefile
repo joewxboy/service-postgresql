@@ -52,6 +52,8 @@ stop:
 
 init:
 	@docker volume create $(DOCKER_VOLUME_NAME)
+	@sudo mkdir /db-data
+	@sudo chmod 777 /db-data
 
 run: stop
 	@docker run -d \
@@ -72,7 +74,7 @@ clean: stop
 	@docker rmi -f $(DOCKER_IMAGE_BASE):$(DOCKER_IMAGE_VERSION) >/dev/null 2>&1 || :
 	@docker volume rm $(DOCKER_VOLUME_NAME)
 
-distclean: agent-stop remove-deployment-policy remove-service-policy remove-service clean
+distclean: agent-stop remove-deployment-policy remove-service clean
 
 build:
 	@echo "There is no Docker image build process since this container is provided by a third-party from official sources."
@@ -80,7 +82,7 @@ build:
 push:
 	@echo "There is no Docker image push process since this container is provided by a third-party from official sources."
 
-publish: publish-service publish-service-policy publish-deployment-policy agent-run
+publish: publish-service publish-deployment-policy agent-run
 
 # Pull, not push, Docker image since provided by third party
 publish-service:
@@ -95,20 +97,6 @@ remove-service:
 	@echo "REMOVING SERVICE"
 	@echo "=================="
 	@hzn exchange service remove -f $(HZN_ORG_ID)/$(SERVICE_NAME)_$(SERVICE_VERSION)_$(ARCH)
-	@echo ""
-
-publish-service-policy:
-	@echo "========================="
-	@echo "PUBLISHING SERVICE POLICY"
-	@echo "========================="
-	@hzn exchange service addpolicy -f ./horizon/service.policy.json $(HZN_ORG_ID)/$(SERVICE_NAME)_$(SERVICE_VERSION)_$(ARCH)
-	@echo ""
-
-remove-service-policy:
-	@echo "======================="
-	@echo "REMOVING SERVICE POLICY"
-	@echo "======================="
-	@hzn exchange service removepolicy -f $(HZN_ORG_ID)/$(SERVICE_NAME)_$(SERVICE_VERSION)_$(ARCH)
 	@echo ""
 
 publish-deployment-policy:
@@ -140,7 +128,7 @@ agent-stop:
 	@echo ""
 
 deploy-check:
-	@hzn deploycheck all -t device -B ./horizon/deployment.policy.json --service=./horizon/service.definition.json --service-pol=./horizon/service.policy.json --node-pol=./horizon/node.policy.json
+	@hzn deploycheck all -t device -B ./horizon/deployment.policy.json --service=./horizon/service.definition.json --node-pol=./horizon/node.policy.json
 
 log:
 	@echo "========="
@@ -153,4 +141,4 @@ log:
 	@echo "==========="
 	@hzn service log -f $(SERVICE_NAME)
 
-.PHONY: default stop init run dev clean build push attach publish publish-service publish-service-policy publish-deployment-policy publish-pattern agent-run distclean deploy-check check log remove-deployment-policy remove-service-policy remove-service
+.PHONY: default stop init run dev clean build push attach publish publish-service publish-deployment-policy publish-pattern agent-run distclean deploy-check check log remove-deployment-policy remove-service

@@ -15,8 +15,7 @@
   "properties": [
   ],
   "constraints": [ 
-        "purpose == storage",
-        "openhorizon.allowPrivileged == false"
+        "purpose == storage"
   ], 
   "userInput": [ 
     {            
