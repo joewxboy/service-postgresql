@@ -67,7 +67,7 @@ hzn sm secret add --secretKey=password --secretDetail=<password> secret_password
 hzn sm secret add --secretKey=db --secretDetail=<databaseName> secret_db
 ```
 
-The first time you intend to run this on a host, run `make init`.  This will create the volume that persists data across container restarts.  It will also create the directory that the database is stored in and ensure it has the proper permissions.
+The first time you intend to run this on a host, run `sudo -sE make init`.  This will create the volume that persists data across container restarts.  It will also create the directory that the database is stored in and ensure it has the proper permissions.
 
 If you are not running as root, you must add the current user account to the docker group so that it can run docker commands without sudo: `sudo usermod -a -G docker $USER`.
 
