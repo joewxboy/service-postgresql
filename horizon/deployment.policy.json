@@ -22,7 +22,11 @@
       "serviceOrgid": "$HZN_ORG_ID",
       "serviceUrl": "$SERVICE_NAME",
       "serviceVersionRange": "[0.0.0,INFINITY)",
-      "inputs": []
+      "inputs": [
+        {"name":"POSTGRES_PASSWORD_FILE","value":"/secret_password"},
+        {"name":"POSTGRES_USER_FILE","value":"/secret_user"},
+        {"name":"POSTGRES_DB_FILE","value":"/secret_db"}
+      ]
     }
   ],
   "secretBinding": [

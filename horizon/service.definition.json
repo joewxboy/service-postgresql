@@ -9,7 +9,26 @@
     "arch": "$ARCH",
     "sharable": "singleton",
     "requiredServices": [],
-    "userInput": [],
+    "userInput": [
+        {
+			"name": "POSTGRES_PASSWORD_FILE",
+			"label": "Password file",
+			"type": "string",
+			"defaultValue": "/SecretName"
+		},
+        {
+			"name": "POSTGRES_USER_FILE",
+			"label": "Username file",
+			"type": "string",
+			"defaultValue": "/SecretName"
+		},
+        {
+			"name": "POSTGRES_DB_FILE",
+			"label": "Database Name file",
+			"type": "string",
+			"defaultValue": "/SecretName"
+		}
+    ],
     "deployment": {
         "services": {
             "$SERVICE_NAME": {
